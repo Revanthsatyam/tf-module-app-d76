@@ -4,3 +4,4 @@ variable "vpc_id" {}
 variable "app_name" {}
 variable "sg_port" {}
 variable "ssh_ingress_cidr" {}
+variable "sg_ingress_cidr" {}
