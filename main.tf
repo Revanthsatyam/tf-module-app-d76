@@ -44,7 +44,5 @@ resource "aws_iam_role" "main" {
     ]
   })
 
-  tags = {
-    tag-key = "tag-value"
-  }
+  tags = merge(local.tags, { Name = "${local.name_prefix}-role" })
 }
