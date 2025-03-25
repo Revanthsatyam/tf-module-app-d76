@@ -46,3 +46,35 @@ resource "aws_iam_role" "main" {
 
   tags = merge(local.tags, { Name = "${local.name_prefix}-role" })
 }
+
+resource "aws_iam_policy" "main" {
+  name        = "${local.name_prefix}-policy"
+  description = "${local.name_prefix}-policy"
+
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "VisualEditor0",
+        "Effect": "Allow",
+        "Action": [
+          "ssm:GetParameterHistory",
+          "ssm:GetParametersByPath",
+          "ssm:GetParameters",
+          "ssm:GetParameter"
+        ],
+        "Resource": "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "main" {
+  role       = aws_iam_role.main.name
+  policy_arn = aws_iam_policy.main.arn
+}
+
+resource "aws_iam_instance_profile" "main" {
+  name = "${local.name_prefix}-instance-profile"
+  role = aws_iam_role.main.name
+}
