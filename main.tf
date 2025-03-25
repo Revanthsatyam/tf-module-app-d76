@@ -98,3 +98,22 @@ resource "aws_launch_template" "main" {
     env       = var.env
   }))
 }
+
+resource "aws_autoscaling_group" "bar" {
+  name               = "foobar3-terraform-test"
+  availability_zones = var.availability_zones
+  max_size           = var.max_size
+  min_size           = var.min_size
+  desired_capacity   = var.desired_capacity
+
+  launch_template {
+    id      = aws_launch_template.main.id
+    version = "$Latest"
+  }
+
+  tag {
+    key                 = "foo"
+    value               = "bar"
+    propagate_at_launch = true
+  }
+}
