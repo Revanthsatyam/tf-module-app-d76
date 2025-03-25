@@ -100,7 +100,7 @@ resource "aws_launch_template" "main" {
 }
 
 resource "aws_autoscaling_group" "bar" {
-  name               = "foobar3-terraform-test"
+  name               = "${local.name_prefix}-asg"
   availability_zones = var.availability_zones
   max_size           = var.max_size
   min_size           = var.min_size
