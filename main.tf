@@ -95,5 +95,6 @@ resource "aws_launch_template" "main" {
 
   user_data = filebase64(templatefile("${path.module}/userdata.sh", {
     component = var.app_name
+    env       = var.env
   }))
 }
