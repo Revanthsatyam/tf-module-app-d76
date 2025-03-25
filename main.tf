@@ -29,9 +29,9 @@ resource "aws_security_group" "main" {
 }
 
 resource "aws_iam_role" "main" {
-  name = "${local.name_prefix}-role"
+  name               = "${local.name_prefix}-role"
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+    Version   = "2012-10-17"
     Statement = [
       {
         Action = "sts:AssumeRole"
@@ -52,18 +52,18 @@ resource "aws_iam_policy" "main" {
   description = "${local.name_prefix}-policy"
 
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Sid": "VisualEditor0",
-        "Effect": "Allow",
-        "Action": [
+        "Sid" : "VisualEditor0",
+        "Effect" : "Allow",
+        "Action" : [
           "ssm:GetParameterHistory",
           "ssm:GetParametersByPath",
           "ssm:GetParameters",
           "ssm:GetParameter"
         ],
-        "Resource": "*"
+        "Resource" : "*"
       }
     ]
   })
@@ -77,4 +77,23 @@ resource "aws_iam_role_policy_attachment" "main" {
 resource "aws_iam_instance_profile" "main" {
   name = "${local.name_prefix}-instance-profile"
   role = aws_iam_role.main.name
+}
+
+resource "aws_launch_template" "main" {
+  name                   = "${local.name_prefix}-launch-template"
+  image_id               = var.ami_id
+  instance_type          = var.instance_type
+  vpc_security_group_ids = [aws_security_group.main.id]
+
+  iam_instance_profile {
+    name = aws_iam_instance_profile.main.name
+  }
+
+  tag_specifications {
+    tags = merge(local.tags, { Name = "${local.name_prefix}-launch-template" })
+  }
+
+  user_data = filebase64(templatefile("${path.module}/userdata.sh", {
+    component = var.app_name
+  }))
 }
