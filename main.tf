@@ -118,3 +118,11 @@ resource "aws_autoscaling_group" "bar" {
     propagate_at_launch = true
   }
 }
+
+# resource "aws_route53_record" "main" {
+#   zone_id = var.zone_id
+#   name    = local.name_prefix
+#   type    = "A"
+#   ttl     = 300
+#   records = [aws_eip.lb.public_ip]
+# }
