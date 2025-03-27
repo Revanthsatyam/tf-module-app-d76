@@ -106,7 +106,7 @@ resource "aws_autoscaling_group" "bar" {
   max_size            = var.max_size
   min_size            = var.min_size
   desired_capacity    = var.desired_capacity
-  vpc_zone_identifier = [var.subnet_id]
+  vpc_zone_identifier = var.subnet_id
 
   launch_template {
     id      = aws_launch_template.main.id
