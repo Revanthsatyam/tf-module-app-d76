@@ -132,7 +132,7 @@ resource "aws_lb_target_group" "private" {
   name        = "${local.name_prefix}-alb-tg"
   target_type = "instance"
   port        = 80
-  protocol    = "TCP"
+  protocol    = "HTTP"
   vpc_id      = var.vpc_id
 }
 
