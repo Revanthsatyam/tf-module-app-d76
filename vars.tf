@@ -13,3 +13,4 @@ variable "desired_capacity" {}
 variable "subnet_id" {}
 variable "zone_id" {}
 variable "dns_record" {}
+variable "priority" {}
