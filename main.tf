@@ -93,7 +93,7 @@ resource "aws_launch_template" "main" {
     tags = merge(local.tags, { Name = "${local.name_prefix}-launch-template" })
   }
 
-  user_data = filebase64(file("${path.module}/userdata.sh", {
+  user_data = filebase64(templatefile("${path.module}/userdata.sh", {
     component = var.app_name
     env       = var.env
   }))
