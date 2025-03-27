@@ -90,7 +90,7 @@ resource "aws_launch_template" "main" {
   }
 
   tag_specifications {
-    resource_type = "${local.name_prefix}-launch-template"
+    resource_type = "launch-template"
     tags          = merge(local.tags, { Name = "${local.name_prefix}-launch-template" })
   }
 
