@@ -106,6 +106,7 @@ resource "aws_autoscaling_group" "main" {
   min_size            = var.min_size
   desired_capacity    = var.desired_capacity
   vpc_zone_identifier = var.subnet_id
+  target_group_arns   = [aws_lb_target_group.private.arn]
 
   launch_template {
     id      = aws_launch_template.main.id
@@ -125,4 +126,12 @@ resource "aws_route53_record" "main" {
   type    = "CNAME"
   ttl     = 300
   records = [var.dns_record]
+}
+
+resource "aws_lb_target_group" "private" {
+  name        = "${local.name_prefix}-alb-tg"
+  target_type = "alb"
+  port        = 80
+  protocol    = "TCP"
+  vpc_id      = var.vpc_id
 }
