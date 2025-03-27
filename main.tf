@@ -102,7 +102,6 @@ resource "aws_launch_template" "main" {
 
 resource "aws_autoscaling_group" "bar" {
   name                = "${local.name_prefix}-asg"
-  #availability_zones  = ["us-east-1a", "us-east-1b"]
   max_size            = var.max_size
   min_size            = var.min_size
   desired_capacity    = var.desired_capacity
