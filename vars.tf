@@ -15,5 +15,6 @@ variable "zone_id" {}
 variable "public_dns_record" {}
 variable "private_dns_record" {}
 variable "priority" {}
-variable "listener_arn" {}
+variable "private_listener_arn" {}
+variable "public_listener_arn" {}
 variable "default_vpc_id" {}

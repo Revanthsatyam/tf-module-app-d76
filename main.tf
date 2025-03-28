@@ -148,7 +148,7 @@ resource "aws_lb_target_group" "private" {
 }
 
 resource "aws_lb_listener_rule" "private" {
-  listener_arn = var.listener_arn
+  listener_arn = var.private_listener_arn
   priority     = var.priority
 
   action {
@@ -190,4 +190,21 @@ resource "aws_lb_target_group_attachment" "public" {
   target_id         = element(tolist(data.dns_a_record_set.private_alb_name.addrs), count.index)
   port              = var.sg_port
   availability_zone = "all"
+}
+
+resource "aws_lb_listener_rule" "public" {
+  count = var.app_name == "frontend" ? 1 : 0
+  listener_arn = var.public_listener_arn
+  priority     = var.priority
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.public[0].arn
+  }
+
+  condition {
+    host_header {
+      values = [var.env == "prod" ? "www.rsdevops.in" : "${var.env}.rsdevops.in"]
+    }
+  }
 }
