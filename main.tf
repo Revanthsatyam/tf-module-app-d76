@@ -186,6 +186,6 @@ resource "aws_lb_target_group" "public" {
 resource "aws_lb_target_group_attachment" "public" {
   count            = var.app_name == "frontend" ? 1 : 0
   target_group_arn = aws_lb_target_group.public[0].arn
-  target_id        = data.dns_a_record_set.private_alb_name.addrs
+  target_id        = data.dns_a_record_set.private_alb_name.addrs[0]
   port             = var.sg_port
 }
