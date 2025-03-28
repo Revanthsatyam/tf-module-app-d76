@@ -12,6 +12,7 @@ variable "min_size" {}
 variable "desired_capacity" {}
 variable "subnet_id" {}
 variable "zone_id" {}
-variable "dns_record" {}
+variable "public_dns_record" {}
+variable "private_dns_record" {}
 variable "priority" {}
 variable "listener_arn" {}
