@@ -139,8 +139,8 @@ resource "aws_lb_target_group" "private" {
     enabled             = true
     healthy_threshold   = 2
     interval            = 5
-    matcher             = "404"
-    path                = "/"
+    matcher             = "200"
+    path                = "/health"
     port                = var.sg_port
     timeout             = 2
     unhealthy_threshold = 2
