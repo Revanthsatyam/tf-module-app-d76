@@ -129,20 +129,21 @@ resource "aws_route53_record" "main" {
 }
 
 resource "aws_lb_target_group" "private" {
-  name        = "${local.name_prefix}-alb-tg"
-  target_type = "instance"
-  port        = 80
-  protocol    = "HTTP"
-  vpc_id      = var.vpc_id
+  name                 = "${local.name_prefix}-alb-tg"
+  port                 = var.sg_port
+  protocol             = "HTTP"
+  vpc_id               = var.vpc_id
+  deregistration_delay = 15
 
   health_check {
-    protocol            = "HTTP"
-    path                = "/health"
-    port                = 80
-    interval            = 30
-    timeout             = 5
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
+    enabled             = true
+    healthy_threshold   = 2
+    interval            = 5
+    matcher             = "404"
+    path                = "/"
+    port                = var.sg_port
+    timeout             = 2
+    unhealthy_threshold = 2
   }
 }
 
