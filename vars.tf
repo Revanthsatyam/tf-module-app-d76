@@ -16,3 +16,4 @@ variable "public_dns_record" {}
 variable "private_dns_record" {}
 variable "priority" {}
 variable "listener_arn" {}
+variable "default_vpc_id" {}

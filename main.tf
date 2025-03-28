@@ -168,7 +168,7 @@ resource "aws_lb_target_group" "public" {
   name                 = "${local.name_prefix}-alb-public-tg"
   port                 = var.sg_port
   protocol             = "HTTP"
-  vpc_id               = var.vpc_id
+  vpc_id               = var.default_vpc_id
   deregistration_delay = 15
 
   health_check {
