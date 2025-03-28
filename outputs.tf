@@ -1,3 +1,3 @@
-# output "asg" {
-#   value = data.aws_autoscaling_group.main
-# }
+output "dns" {
+  value = data.dns_a_record_set.private_alb_name
+}
