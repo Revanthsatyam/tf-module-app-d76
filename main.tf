@@ -138,7 +138,7 @@ resource "aws_lb_target_group" "private" {
   health_check {
     protocol            = "HTTP"
     path                = "/health"
-    port                = 200
+    port                = 80
     interval            = 30
     timeout             = 5
     healthy_threshold   = 3
