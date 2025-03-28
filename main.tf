@@ -125,7 +125,7 @@ resource "aws_route53_record" "main" {
   name    = var.app_name == "frontend" ? var.env : local.name_prefix
   type    = "CNAME"
   ttl     = 30
-  records = var.app_name == "frontend" ? var.public_dns_record : var.private_dns_record
+  records = [var.app_name == "frontend" ? var.public_dns_record : var.private_dns_record]
 }
 
 resource "aws_lb_target_group" "private" {
