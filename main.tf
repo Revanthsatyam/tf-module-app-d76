@@ -157,7 +157,7 @@ resource "aws_lb_listener_rule" "private" {
 
   condition {
     host_header {
-      values = ["catalogue-dev.rsdevops.in"]
+      values = ["${local.name_prefix}.rsdevops.in"]
     }
   }
 }
