@@ -158,7 +158,7 @@ resource "aws_lb_listener_rule" "private" {
 
   condition {
     host_header {
-      values = ["${local.name_prefix}.rsdevops.in"]
+      values = [var.app_name == "frontend" ? var.env : "${local.name_prefix}.rsdevops.in"]
     }
   }
 }
