@@ -182,3 +182,10 @@ resource "aws_lb_listener_rule" "private" {
 #     unhealthy_threshold = 2
 #   }
 # }
+#
+# resource "aws_lb_target_group_attachment" "test" {
+#   count            = var.app_name == "frontend" ? 1 : 0
+#   target_group_arn = aws_lb_target_group.public[0].arn
+#   target_id        = aws_instance.test.id
+#   port             = var.sg_port
+# }
