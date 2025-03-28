@@ -147,7 +147,7 @@ resource "aws_lb_target_group" "private" {
 }
 
 resource "aws_lb_listener_rule" "private" {
-  listener_arn = "arn:aws:elasticloadbalancing:us-east-1:058264090525:listener/app/private-alb/f748d9f123558797/5f05a1e79d775003"
+  listener_arn = var.listener_arn
   priority     = var.priority
 
   action {
