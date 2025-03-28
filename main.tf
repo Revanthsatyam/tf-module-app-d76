@@ -169,6 +169,7 @@ resource "aws_lb_target_group" "public" {
   port                 = var.sg_port
   protocol             = "HTTP"
   vpc_id               = var.default_vpc_id
+  target_type          = "ip"
   deregistration_delay = 15
 
   health_check {
