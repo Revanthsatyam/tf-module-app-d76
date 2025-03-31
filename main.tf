@@ -28,6 +28,15 @@ resource "aws_security_group" "main" {
   }
 }
 
+resource "aws_security_group_rule" "main" {
+  type              = "ingress"
+  from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
+  cidr_blocks       = [var.prometheus_private_ip]
+  security_group_id = aws_security_group.main.id
+}
+
 resource "aws_iam_role" "main" {
   name               = "${local.name_prefix}-role"
   assume_role_policy = jsonencode({
