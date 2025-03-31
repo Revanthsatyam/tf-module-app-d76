@@ -33,7 +33,7 @@ resource "aws_security_group_rule" "main" {
   from_port         = 9100
   to_port           = 9100
   protocol          = "tcp"
-  cidr_blocks       = [var.prometheus_private_ip]
+  cidr_blocks       = var.prometheus_private_ip
   security_group_id = aws_security_group.main.id
 }
 
