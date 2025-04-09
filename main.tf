@@ -73,7 +73,7 @@ resource "aws_iam_policy" "main" {
           "ssm:GetParameters",
           "ssm:GetParameter"
         ],
-        "Resource" : [local.policy_resources, var.kms_key]
+        "Resource" : local.policy_resources
       }
     ]
   })
