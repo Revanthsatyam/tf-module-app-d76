@@ -20,3 +20,4 @@ variable "public_listener_arn" {}
 variable "default_vpc_id" {}
 variable "prometheus_private_ip" {}
 variable "kms_key" {}
+variable "parameters" {}
