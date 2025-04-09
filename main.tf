@@ -115,8 +115,9 @@ resource "aws_launch_template" "main" {
   block_device_mappings {
     device_name = "/dev/xvda"
     ebs {
-      encrypted             = true
-      #kms_key_id            = var.kms_key
+      volume_size = 10
+      encrypted   = true
+      kms_key_id  = var.kms_key
     }
   }
 
@@ -225,7 +226,7 @@ resource "aws_lb_target_group_attachment" "public" {
 }
 
 resource "aws_lb_listener_rule" "public" {
-  count = var.app_name == "frontend" ? 1 : 0
+  count        = var.app_name == "frontend" ? 1 : 0
   listener_arn = var.public_listener_arn
   priority     = var.priority
 
