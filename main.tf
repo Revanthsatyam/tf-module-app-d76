@@ -76,6 +76,7 @@ resource "aws_iam_policy" "main" {
         "Effect" : "Allow",
         "Action" : [
           "kms:Decrypt",
+#           "kms:GenerateDataKey*",
           "ssm:GetParameterHistory",
           "ssm:GetParametersByPath",
           "ssm:GetParameters",
