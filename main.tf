@@ -99,15 +99,23 @@ resource "aws_launch_template" "main" {
     name = aws_iam_instance_profile.main.name
   }
 
-  tag_specifications {
-    resource_type = "instance"
-    tags          = merge(local.tags, { Name = "${local.name_prefix}" })
-  }
-
   user_data = base64encode(templatefile("${path.module}/userdata.sh", {
     component = var.app_name
     env       = var.env
   }))
+
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      encrypted             = true
+      kms_key_id            = var.kms_key
+    }
+  }
+
+  tag_specifications {
+    resource_type = "instance"
+    tags          = merge(local.tags, { Name = "${local.name_prefix}" })
+  }
 }
 
 resource "aws_autoscaling_group" "main" {
