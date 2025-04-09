@@ -19,6 +19,14 @@ resource "aws_security_group" "main" {
     cidr_blocks = var.ssh_ingress_cidr
   }
 
+  ingress {
+    description = "Node Exporter for Prometheus"
+    from_port   = 9100
+    to_port     = 9100
+    protocol    = "tcp"
+    cidr_blocks = var.prometheus_private_ip
+  }
+
   egress {
     from_port        = 0
     to_port          = 0
@@ -28,14 +36,14 @@ resource "aws_security_group" "main" {
   }
 }
 
-resource "aws_security_group_rule" "main" {
-  type              = "ingress"
-  from_port         = 9100
-  to_port           = 9100
-  protocol          = "tcp"
-  cidr_blocks       = var.prometheus_private_ip
-  security_group_id = aws_security_group.main.id
-}
+# resource "aws_security_group_rule" "main" {
+#   type              = "ingress"
+#   from_port         = 9100
+#   to_port           = 9100
+#   protocol          = "tcp"
+#   cidr_blocks       = var.prometheus_private_ip
+#   security_group_id = aws_security_group.main.id
+# }
 
 resource "aws_iam_role" "main" {
   name               = "${local.name_prefix}-role"
