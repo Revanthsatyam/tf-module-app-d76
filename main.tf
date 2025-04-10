@@ -118,7 +118,7 @@ resource "aws_launch_template" "main" {
     ebs {
       volume_size = 10
       encrypted   = true
-      #kms_key_id  = var.kms_key
+      kms_key_id  = var.kms_key
     }
   }
 
