@@ -116,7 +116,7 @@ resource "aws_launch_template" "main" {
   block_device_mappings {
     device_name = "/dev/xvda"
     ebs {
-#       volume_size = 10
+      volume_size = 10
       encrypted   = true
       kms_key_id  = var.kms_key
     }
