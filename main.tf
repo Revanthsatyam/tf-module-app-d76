@@ -154,6 +154,21 @@ resource "aws_autoscaling_group" "main" {
   }
 }
 
+resource "aws_autoscaling_policy" "main" {
+  autoscaling_group_name    = aws_autoscaling_group.main.name
+  name                      = "CPULoadDetect"
+  policy_type               = "TargetTrackingScaling"
+  estimated_instance_warmup = 120
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 50.0
+  }
+}
+
 resource "aws_route53_record" "main" {
   zone_id = var.zone_id
   name    = var.app_name == "frontend" ? var.env : local.name_prefix
