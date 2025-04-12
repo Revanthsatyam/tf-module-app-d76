@@ -171,7 +171,7 @@ resource "aws_autoscaling_policy" "main" {
 
 resource "aws_route53_record" "main" {
   zone_id = var.zone_id
-  name    = var.app_name == "frontend" ? var.env : local.name_prefix
+  name    = var.app_name == "frontend" ? [var.env == "prod" ? "www" : var.env] : local.name_prefix
   type    = "CNAME"
   ttl     = 30
   records = [var.app_name == "frontend" ? var.public_dns_record : var.private_dns_record]
